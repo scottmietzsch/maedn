@@ -17,11 +17,15 @@ public class Start {
 		while (beendet == false) {
 			for (int spielernummer : spieler.keySet()) {
 
-				System.out.println("Spieler " + spielernummer + " ist dran.");
 				Spieler aktuellerSpieler = spieler.get(spielernummer);
+				System.out.println(aktuellerSpieler.name + " ist dran.");
 
-				if (aktuellerSpieler.dreimalWuerfeln() == true && Wuerfel.dreimalWuerfeln() == true) {
-					aktuellerSpieler.ausruecken();
+				if (aktuellerSpieler.dreimalWuerfeln() == true) {
+					if (Wuerfel.dreimalWuerfeln() == true){
+						aktuellerSpieler.ausruecken();
+					} else {
+						System.out.println("Keine 6 gewürfelt!");
+					}
 				} else {
 					aktuellerSpieler.rutschen();
 				}

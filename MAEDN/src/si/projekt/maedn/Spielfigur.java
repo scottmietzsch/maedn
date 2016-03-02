@@ -19,14 +19,16 @@ public class Spielfigur {
 		return darfRutschen;
 	}
 	
-	public int ausRuecken(){
+	public boolean ausRuecken(){
 		this.feldnummer = this.spielernummer * 10;
-		return this.feldnummer;
+		return true;
 	}
 	
-	public int rutschen(int augenzahl){
-		this.feldnummer = this.feldnummer + augenzahl;
-		return this.feldnummer;
+	public boolean rutschen(int augenzahl){
+		int neuesFeld = this.feldnummer + augenzahl;
+		if (neuesFeld>49) neuesFeld = neuesFeld-40;
+		this.feldnummer = neuesFeld;
+		return true;
 	}
 	
 }
