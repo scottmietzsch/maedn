@@ -1,6 +1,7 @@
 package si.projekt.maedn;
 
 public class Wuerfel {
+	
 	public static int einmalWuerfeln() {
 		int zufall = (int) (6 * Math.random()) + 1;
 		System.out.println("Es wurde " + zufall + " gewuerfelt!");
