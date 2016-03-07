@@ -1,11 +1,9 @@
 package si.projekt.maedn;
 
 public class Spielfigur {
-	int spielernummer;
-	int figurnummer;
-	int feldnummer;
-	boolean start = true;
-	boolean ziel = false;
+	int spielernummer = 0;
+	int figurnummer = 0;
+	int feldnummer = 0;
 
 	public Spielfigur(int spielernummer, int figurnummer) {
 		this.spielernummer = spielernummer;
@@ -13,22 +11,13 @@ public class Spielfigur {
 		this.feldnummer = (spielernummer * 10 + figurnummer) * -1;
 	}
 
-	public boolean darfRutschen() {
-		boolean darfRutschen = true;
-		if (this.feldnummer < 0)
-			darfRutschen = false;
-		return darfRutschen;
-	}
-
 	public int ausRuecken() {
 		this.feldnummer = this.spielernummer * 10;
-		this.start = false;
 		return this.feldnummer;
 	}
 	
 	public boolean rauswerfen(){
 		this.feldnummer = (spielernummer * 10 + figurnummer) * -1;
-		this.start = true;
 		return true;
 	}
 
@@ -50,15 +39,8 @@ public class Spielfigur {
 		return neuesFeld;
 	}
 
-	public boolean setzeNeuesFeld(int neuesFeld) {
-
-		if (neuesFeld > 104 + this.spielernummer * 10){
-			System.out.println("Augenzahl ist zu groﬂ!");
-			return false;
-		}
-
+	public void setzeNeuesFeld(int neuesFeld) {
 		this.feldnummer = neuesFeld;
-		return true;
 	}
 
 }

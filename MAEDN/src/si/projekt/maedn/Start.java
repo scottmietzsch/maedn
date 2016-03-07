@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 public class Start {
 
-	static int spielerAnzahl;
-	static boolean beendet = false;
+	static int spielerAnzahl = 0;
 	static HashMap<Integer, Spieler> spieler = new HashMap<Integer, Spieler>();
+	static HashMap<Integer, String> plaetze = new HashMap<Integer, String>();
 
 	public static void main(String[] args) {
 		erzeugeSpieler();
@@ -14,41 +14,67 @@ public class Start {
 	}
 
 	private static void erzeugeSpieler() {
-		System.out.println("Wieviele Spieler?");
-		spielerAnzahl = Integer.parseInt(Utils.readString());
-		for (int i = 1; i <= spielerAnzahl; i++) {
-			spieler.put(i, new Spieler(i));
-		}
+		do {
+			System.out.println("Wieviele Spieler?");
+			int rspielerAnzahl = Integer.parseInt(Utils.readString());
+			if (rspielerAnzahl <= 4 && rspielerAnzahl > 0) {
+				spielerAnzahl = rspielerAnzahl;
+				for (int i = 1; i <= rspielerAnzahl; i++) {
+					spieler.put(i, new Spieler(i));
+				}
+			} else {
+				System.out.println("Maximal 4 Spieler!");
+			}
+		} while (spielerAnzahl == 0);
 	}
 
 	private static void spielAblauf() {
-		while (beendet == false) {
+		int beendet = 0;
+		while (beendet < spielerAnzahl) {
 			for (int spielernummer : spieler.keySet()) {
-
 				Spieler aktuellerSpieler = spieler.get(spielernummer);
-				System.out.println(aktuellerSpieler.name + " ist dran.");
-				int neuesFeld = 0;
-				
-				if (aktuellerSpieler.dreimalWuerfeln() == true) {
-					if (Wuerfel.dreimalWuerfeln() == true) {
-						neuesFeld = aktuellerSpieler.ausruecken();
+
+				if (aktuellerSpieler.beendet == false) {
+					System.out.println(aktuellerSpieler.name + " ist dran.");
+
+					int neuesFeld = 0;
+					int augenzahl = 0;
+
+					if (aktuellerSpieler.dreimalWuerfeln() == true) {
+						if (Wuerfel.dreimalWuerfeln() == true) {
+							augenzahl = 6;
+						} else {
+							System.out.println("Keine 6 gewürfelt - beenden!");
+						}
 					} else {
-						System.out.println("Keine 6 gewürfelt!");
+						augenzahl = Wuerfel.einmalWuerfeln();
 					}
-				} else {
-					neuesFeld = aktuellerSpieler.rutschen();
-					if (neuesFeld == -99) {
-						System.out.println("Zug nicht möglich!");
-					} else {
-						rauswerfen(neuesFeld, aktuellerSpieler.spielernummer);
-						System.out.println("Zug beendet!");
-						
+					
+					if (augenzahl > 0){
+						neuesFeld = aktuellerSpieler.rutschen(augenzahl);
+
+						if (neuesFeld != -99) {
+							rauswerfen(neuesFeld, aktuellerSpieler.spielernummer);
+							System.out.println("Zug beendet!");
+						} else {
+							System.out.println("Zug nicht möglich - beenden!");
+						}
+					}
+
+					if (aktuellerSpieler.pruefeBeendet() == true) {
+						System.out.println(aktuellerSpieler.name + " ist im Ziel!");
+						beendet++;
+						plaetze.put(beendet, aktuellerSpieler.name);
 					}
 				}
-				aktuellerSpieler.druckSpielstand();
 			}
-
 		}
+
+		System.out.println("-----------Spiel beendet! Die Platzierungen sind:--------------");
+		for (int platz : plaetze.keySet()) {
+			System.out.println(platz + ". Platz: " + plaetze.get(platz));
+		}
+		System.out.println("---------------------------------------------------------------");
 	}
 
 	private static void rauswerfen(int neuesFeld, int spielerNummer) {
