@@ -2,30 +2,32 @@ package si.projekt.maedn;
 
 import java.util.HashMap;
 
-public class Start {
+public class Spiel {
 
 	static int spielerAnzahl = 0;
 	static HashMap<Integer, Spieler> spieler = new HashMap<Integer, Spieler>();
 	static HashMap<Integer, String> plaetze = new HashMap<Integer, String>();
 
 	public static void main(String[] args) {
+
+		GUI.oeffneFenster();
 		erzeugeSpieler();
+		GUI.zeigeSpielfeld();
+		GUI.rad();
 		spielAblauf();
 	}
 
 	private static void erzeugeSpieler() {
-		do {
-			System.out.println("Wieviele Spieler?");
-			int rspielerAnzahl = Integer.parseInt(Utils.readString());
-			if (rspielerAnzahl <= 4 && rspielerAnzahl > 0) {
-				spielerAnzahl = rspielerAnzahl;
-				for (int i = 1; i <= rspielerAnzahl; i++) {
-					spieler.put(i, new Spieler(i));
-				}
-			} else {
-				System.out.println("Maximal 4 Spieler!");
-			}
-		} while (spielerAnzahl == 0);
+
+		spielerAnzahl = GUI.holeSpielerAnzahl();
+
+		System.out.println("Anzahl Spieler: " + spielerAnzahl);
+		for (int i = 1; i <= spielerAnzahl; i++) {
+			spieler.put(i, new Spieler(i));
+		}
+		
+		
+
 	}
 
 	private static void spielAblauf() {
@@ -49,8 +51,8 @@ public class Start {
 					} else {
 						augenzahl = Wuerfel.einmalWuerfeln();
 					}
-					
-					if (augenzahl > 0){
+
+					if (augenzahl > 0) {
 						neuesFeld = aktuellerSpieler.rutschen(augenzahl);
 
 						if (neuesFeld != -99) {
@@ -91,5 +93,4 @@ public class Start {
 
 		}
 	}
-
 }

@@ -10,9 +10,10 @@ public class Spieler {
 	HashMap<Integer, Spielfigur> spielfiguren = new HashMap<Integer, Spielfigur>();
 
 	public Spieler(int spielernummer) {
+
 		this.spielernummer = spielernummer;
-		System.out.println("Name Spieler " + spielernummer + "?");
-		this.name = Utils.readString();
+		name = GUI.holeSpielerName(spielernummer);
+		System.out.println("Name Spieler " + spielernummer + ": " + name);
 		erzeugeSpielfiguren();
 	}
 
@@ -72,7 +73,7 @@ public class Spieler {
 		return neuesFeld;
 
 	}
-	
+
 	private int ausruecken() {
 
 		int neuesFeld = -99;
@@ -105,7 +106,6 @@ public class Spieler {
 		return neuesFeld;
 
 	}
-
 
 	private int setzeFigur(int augenzahl, int figurnummer) {
 		Spielfigur spielfigur = spielfiguren.get(figurnummer);
@@ -153,7 +153,7 @@ public class Spieler {
 	}
 
 	public boolean dreimalWuerfeln() {
-		int zielFeld = 104 + spielernummer*100;
+		int zielFeld = 104 + spielernummer * 100;
 		int imZiel = 0;
 		int imStart = 0;
 		for (Integer spielernummer : spielfiguren.keySet()) {
@@ -165,7 +165,7 @@ public class Spieler {
 				imStart++;
 			}
 		}
-		if (imZiel + imStart == 4){
+		if (imZiel + imStart == 4) {
 			return true;
 		} else {
 			return false;

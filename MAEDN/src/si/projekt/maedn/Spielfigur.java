@@ -1,6 +1,7 @@
 package si.projekt.maedn;
 
 public class Spielfigur {
+	
 	int spielernummer = 0;
 	int figurnummer = 0;
 	int feldnummer = 0;
@@ -9,6 +10,8 @@ public class Spielfigur {
 		this.spielernummer = spielernummer;
 		this.figurnummer = figurnummer;
 		this.feldnummer = (spielernummer * 10 + figurnummer) * -1;
+		GUI.erzeugeSpielfigur(spielernummer, figurnummer);
+		GUI.setzeSpielfigur(spielernummer, figurnummer, feldnummer);
 	}
 
 	public int ausRuecken() {
