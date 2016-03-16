@@ -34,7 +34,7 @@ public class GUI {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public static void oeffneFenster() {
+	public static void oeffneFenster() { //zeige Willkommensbildschirm
 
 		display = Display.getDefault();
 		shlMaedn = new Shell(display, SWT.CLOSE | SWT.TITLE | SWT.MIN);
@@ -43,7 +43,7 @@ public class GUI {
 		shlMaedn.setSize(808, 851);
 		shlMaedn.setText("MEADN");
 
-		textfeld = new Text(shlMaedn, SWT.BORDER);
+		textfeld = new Text(shlMaedn, SWT.BORDER); //Statustextfeld
 		textfeld.setBounds(0, 801, 802, 21);
 
 		lblWelcome = new Label(shlMaedn, SWT.NONE);
@@ -61,11 +61,11 @@ public class GUI {
 		shlMaedn.layout();
 	}
 
-	public static void zeigeText(String text) {
+	public static void zeigeText(String text) { //Zeige vorgegebenen Text im Statustextfeld an
 		textfeld.setText(text);
 	}
 
-	public static void zeigeSpielfeld() {
+	public static void zeigeSpielfeld() { //zeige vorbereitetes Spielfeld an
 		lblWelcome.dispose();
 		lblMaedn.dispose();
 
@@ -78,7 +78,7 @@ public class GUI {
 				SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Spielfeld.png"));
 	}
 
-	public static int holeSpielerAnzahl() {
+	public static int holeSpielerAnzahl() { //Abfrage Spieleranzahl
 
 		GUI.zeigeText("Wie viele Spieler?");
 
@@ -138,7 +138,7 @@ public class GUI {
 		return spielerAnzahl;
 	}
 
-	public static String holeSpielerName(int spielernummer) {
+	public static String holeSpielerName(int spielernummer) { //Abfrage Spielername
 		GUI.zeigeText("Spieler " + spielernummer + ": Trage deinen Namen ein!");
 
 		String spielerName = "Spieler " + spielernummer;
@@ -174,7 +174,7 @@ public class GUI {
 
 	}
 
-	public static void erzeugeSpielfigur(int spielernummer, int figurnummer) {
+	public static void erzeugeSpielfigur(int spielernummer, int figurnummer) { //erzeuge Spielfigur
 		Canvas spielfigur = new Canvas(shlMaedn, SWT.TRANSPARENT);
 		spielfigur.setSize(0, 0);
 		spielfigur.addPaintListener(new PaintListener() {
@@ -207,7 +207,14 @@ public class GUI {
 		spielfiguren.put(spielernummer * 10 + figurnummer, spielfigur);
 
 	}
-
+	
+	
+	/*
+	 * Felder 100+	--> Zielfelder
+	 * Felder <0 	--> Startbereich
+	 * 10 			--> Spielernummer
+	 * 1 			--> Feldnummer
+	 */
 	public static void setzeSpielfigur(int spielernummer, int figurnummer, int feldnummer) {
 		Canvas spielfigur = spielfiguren.get(spielernummer * 10 + figurnummer);
 		switch (feldnummer) {
@@ -441,8 +448,8 @@ public class GUI {
 		}
 
 	}
-
-	public static void warteAufBeenden() {
+	
+	public static void warteAufBeenden() { //Bestätigung des Spielers
 		Canvas beenden = new Canvas(shlMaedn, SWT.TRANSPARENT);
 		beenden.setBounds(350, 350, 100, 100);
 		beenden.addPaintListener(new PaintListener() {
@@ -475,8 +482,8 @@ public class GUI {
 			}
 		}
 	}
-
-	public static void warteAufWuerfel() {
+	
+	public static void warteAufWuerfel() { //Aktion des Spielers vor würfeln
 		Canvas wuerfel = new Canvas(shlMaedn, SWT.TRANSPARENT);
 		wuerfel.setBounds(350, 350, 100, 100);
 		wuerfel.addPaintListener(new PaintListener() {
@@ -511,7 +518,7 @@ public class GUI {
 		}
 	}
 
-	public static void zeigeAugenzahl(int augenzahl) {
+	public static void zeigeAugenzahl(int augenzahl) { //zeige gewürfelte Augenzahl an
 		Canvas wuerfel = new Canvas(shlMaedn, SWT.TRANSPARENT);
 		wuerfel.setBounds(375, 375, 50, 50);
 		wuerfel.addPaintListener(new PaintListener() {
@@ -576,7 +583,7 @@ public class GUI {
 		}
 	}
 
-	public static int welcheSpielfigur(int spielernummer) {
+	public static int welcheSpielfigur(int spielernummer) { //Abfrage Spielfigurnummer
 		letzteAusgewaehlteFigur = 0;
 
 		MouseListener mouseListener1 = new MouseListener() {
@@ -655,12 +662,12 @@ public class GUI {
 		return letzteAusgewaehlteFigur;
 	}
 
-	public static void ende(HashMap<Integer, String> plaetze) {
+	public static void ende(HashMap<Integer, String> plaetze) { //Spielende, zeige Plätze an
 		shlMaedn.setBackgroundImage(null);
-		for (int spielfigurnummer : spielfiguren.keySet()){
+		for (int spielfigurnummer : spielfiguren.keySet()) {
 			spielfiguren.get(spielfigurnummer).dispose();
 		}
-		
+
 		lblWelcome = new Label(shlMaedn, SWT.NONE);
 		lblWelcome.setImage(SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Maedn.png"));
 		lblWelcome.setBounds(196, 72, 400, 284);
@@ -671,7 +678,7 @@ public class GUI {
 		lblMaedn.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
 		lblMaedn.setBounds(221, 0, 347, 81);
 		lblMaedn.setText("Spiel beendet!");
-		
+
 		Table table = new Table(shlMaedn, SWT.BORDER | SWT.FULL_SELECTION);
 		table.setBounds(269, 422, 264, 161);
 		table.setHeaderVisible(true);
@@ -691,7 +698,7 @@ public class GUI {
 		for (int i = 0; i < titles.length; i++) {
 			table.getColumn(i).pack();
 		}
-		
+
 		while (!shlMaedn.isDisposed()) {
 			if (!display.readAndDispatch())
 				display.sleep();

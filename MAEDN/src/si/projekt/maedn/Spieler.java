@@ -9,11 +9,11 @@ public class Spieler {
 	boolean beendet = false;
 	HashMap<Integer, Spielfigur> spielfiguren = new HashMap<Integer, Spielfigur>();
 
-	public Spieler(int spielernummer) {
+	public Spieler(int spielernummer) { //erzeuge Spieler mit Name
 
 		this.spielernummer = spielernummer;
 		String spielername = GUI.holeSpielerName(spielernummer);
-		if (spielername == null || spielername.equals("")){
+		if (spielername == null || spielername.equals("")) {
 			spielername = "Spieler " + spielernummer;
 		}
 		this.name = spielername;
@@ -21,14 +21,14 @@ public class Spieler {
 		erzeugeSpielfiguren();
 	}
 
-	public void erzeugeSpielfiguren() {
+	public void erzeugeSpielfiguren() { //erzeuge 4 Spielfiguren
 		for (int k = 1; k <= 4; k++) {
 			Spielfigur spielfigur = new Spielfigur(this.spielernummer, k);
 			spielfiguren.put(k, spielfigur);
 		}
 	}
 
-	public int rutschen(int augenzahl) {
+	public int rutschen(int augenzahl) { //prüfe, welche Spielfiguren gerutscht werden können, rutsche wenn möglich
 
 		HashMap<Integer, Integer> figurenStatus = pruefeFiguren(augenzahl);
 
@@ -77,7 +77,7 @@ public class Spieler {
 
 	}
 
-	private int ausruecken() {
+	private int ausruecken() { //prüfe, ob Spielfiguren ausgerückt werden können, rücke aus wenn möglich 
 
 		int neuesFeld = -99;
 		int figurnummer = 0;
@@ -99,7 +99,7 @@ public class Spieler {
 		return neuesFeld;
 	}
 
-	public int nachausruecken() {
+	public int nachausruecken() { //Nach ausrücken nochmal würfeln und Spielfigur vom Startfeld rutschen
 
 		GUI.zeigeText("Nochmal würfeln und vom Start runter...");
 		int augenzahl = Wuerfel.einmalWuerfeln();
@@ -113,7 +113,7 @@ public class Spieler {
 				break;
 			}
 		}
-		
+
 		int figurnummer = 0;
 		for (int rfigurnummer : figurenStatus.keySet()) {
 			if (figurenStatus.get(rfigurnummer) == 10) {
@@ -121,7 +121,7 @@ public class Spieler {
 				break;
 			}
 		}
-		
+
 		int neuesFeld = 0;
 
 		if (pruefeFigur(augenzahl, figurnummer) != 1 && start == false) {
@@ -134,14 +134,14 @@ public class Spieler {
 
 	}
 
-	private int setzeFigur(int augenzahl, int figurnummer) {
+	private int setzeFigur(int augenzahl, int figurnummer) { //setze neue Feldnummer
 		Spielfigur spielfigur = spielfiguren.get(figurnummer);
 		int neuesFeld = spielfigur.berechneNeuesFeld(augenzahl);
 		spielfigur.setzeNeuesFeld(neuesFeld);
 		return neuesFeld;
 	}
 
-	private HashMap<Integer, Integer> pruefeFiguren(int augenzahl) {
+	private HashMap<Integer, Integer> pruefeFiguren(int augenzahl) { //prüfe alle Figuren
 		HashMap<Integer, Integer> figurenStatus = new HashMap<Integer, Integer>();
 		for (int i = 1; i <= 4; i++) {
 			figurenStatus.put(i, pruefeFigur(augenzahl, i));
@@ -149,7 +149,7 @@ public class Spieler {
 		return figurenStatus;
 	}
 
-	private int pruefeFigur(int augenzahl, int figurnummer) {
+	private int pruefeFigur(int augenzahl, int figurnummer) { //prüfe, Figur, ob sie gerutscht werden kann und evtl. warum nicht
 
 		Spielfigur spielfigur = spielfiguren.get(figurnummer);
 		int neuesFeld = spielfigur.berechneNeuesFeld(augenzahl);
@@ -157,11 +157,11 @@ public class Spieler {
 		if (spielfigur.feldnummer < 0) {
 			return -1;
 		}
-		
+
 		if (neuesFeld > this.spielernummer * 10 + 103) {
 			return 999;
-		} 
-		
+		}
+
 		if (spielfigur.feldnummer == spielernummer * 10) {
 			return 10;
 		}
@@ -172,17 +172,18 @@ public class Spieler {
 				if (rspielfigur.feldnummer == neuesFeld) {
 					return 9;
 				}
-				if (rspielfigur.feldnummer > 100 && rspielfigur.feldnummer < neuesFeld && spielfigur.feldnummer < rspielfigur.feldnummer) {
+				if (rspielfigur.feldnummer > 100 && rspielfigur.feldnummer < neuesFeld
+						&& spielfigur.feldnummer < rspielfigur.feldnummer) {
 					return 99;
 				}
 			}
 		}
-		
+
 		return 1;
 
 	}
 
-	public boolean dreimalWuerfeln() {
+	public boolean dreimalWuerfeln() { //prüfe, ob Spieler dreimal würfeln darf (wenn einzige Möglichkeit weiterzuspielen = Spielstein ausrücken)
 		int zielFeld = spielernummer * 10 + 103;
 		int imZiel = 0;
 		int imStart = 0;
@@ -202,7 +203,7 @@ public class Spieler {
 		}
 	}
 
-	public boolean pruefeBeendet() {
+	public boolean pruefeBeendet() { //prüfe, ob Spieler im Ziel ist
 		int figurenImZiel = 0;
 		for (int spielFigurNummer : spielfiguren.keySet()) {
 			Spielfigur spielfigur = spielfiguren.get(spielFigurNummer);
