@@ -13,7 +13,6 @@ public class Spiel {
 		GUI.oeffneFenster();
 		erzeugeSpieler();
 		GUI.zeigeSpielfeld();
-		GUI.rad();
 		spielAblauf();
 	}
 
@@ -21,7 +20,6 @@ public class Spiel {
 
 		spielerAnzahl = GUI.holeSpielerAnzahl();
 
-		System.out.println("Anzahl Spieler: " + spielerAnzahl);
 		for (int i = 1; i <= spielerAnzahl; i++) {
 			spieler.put(i, new Spieler(i));
 		}
@@ -37,18 +35,20 @@ public class Spiel {
 				Spieler aktuellerSpieler = spieler.get(spielernummer);
 
 				if (aktuellerSpieler.beendet == false) {
-					System.out.println(aktuellerSpieler.name + " ist dran.");
 
 					int neuesFeld = 0;
 					int augenzahl = 0;
 
 					if (aktuellerSpieler.dreimalWuerfeln() == true) {
+						GUI.zeigeText(aktuellerSpieler.name + " ist dran und darf dreimal würfeln! Würfelbecher anklicken zum würfeln...");
 						if (Wuerfel.dreimalWuerfeln() == true) {
 							augenzahl = 6;
 						} else {
-							System.out.println("Keine 6 gewürfelt - beenden!");
+							GUI.zeigeText("Keine 6 gewürfelt - Zug beenden! Bitte Bestätigen...");
 						}
 					} else {
+
+						GUI.zeigeText(aktuellerSpieler.name + " ist dran. Würfelbecher anklicken zum würfeln...");
 						augenzahl = Wuerfel.einmalWuerfeln();
 					}
 
@@ -56,17 +56,24 @@ public class Spiel {
 						neuesFeld = aktuellerSpieler.rutschen(augenzahl);
 
 						if (neuesFeld != -99) {
+							if (neuesFeld == aktuellerSpieler.spielernummer *10){
+								rauswerfen(neuesFeld, aktuellerSpieler.spielernummer);
+								aktuellerSpieler.nachausruecken();
+							}
 							rauswerfen(neuesFeld, aktuellerSpieler.spielernummer);
-							System.out.println("Zug beendet!");
+							GUI.zeigeText("Zug beenden! Bitte Bestätigen...");
 						} else {
-							System.out.println("Zug nicht möglich - beenden!");
+							GUI.zeigeText("Zug nicht möglich - beenden! Bitte Bestätigen...");
 						}
+						GUI.warteAufBeenden();
+						
 					}
 
 					if (aktuellerSpieler.pruefeBeendet() == true) {
-						System.out.println(aktuellerSpieler.name + " ist im Ziel!");
+						GUI.zeigeText(aktuellerSpieler.name + " ist im Ziel!");
 						beendet++;
 						plaetze.put(beendet, aktuellerSpieler.name);
+						GUI.warteAufBeenden();
 					}
 				}
 			}
