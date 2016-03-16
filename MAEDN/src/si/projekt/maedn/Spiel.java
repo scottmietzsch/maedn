@@ -51,6 +51,8 @@ public class Spiel {
 						GUI.zeigeText(aktuellerSpieler.name + " ist dran. Würfelbecher anklicken zum würfeln...");
 						augenzahl = Wuerfel.einmalWuerfeln();
 					}
+					
+					String endText = "Zug beendet! Bitte Bestätigen...";
 
 					if (augenzahl > 0) {
 						neuesFeld = aktuellerSpieler.rutschen(augenzahl);
@@ -60,33 +62,32 @@ public class Spiel {
 								rauswerfen(neuesFeld, aktuellerSpieler.spielernummer);
 								aktuellerSpieler.nachausruecken();
 							}
-							rauswerfen(neuesFeld, aktuellerSpieler.spielernummer);
-							GUI.zeigeText("Zug beenden! Bitte Bestätigen...");
+							if(rauswerfen(neuesFeld, aktuellerSpieler.spielernummer)){
+								endText = "Spieler rausgeworfen! Zug beendet! Bitte Bestätigen...";
+							}
 						} else {
-							GUI.zeigeText("Zug nicht möglich - beenden! Bitte Bestätigen...");
+							endText = "Zug nicht möglich - beenden! Bitte Bestätigen...";
 						}
-						GUI.warteAufBeenden();
 						
 					}
 
 					if (aktuellerSpieler.pruefeBeendet() == true) {
-						GUI.zeigeText(aktuellerSpieler.name + " ist im Ziel!");
 						beendet++;
 						plaetze.put(beendet, aktuellerSpieler.name);
-						GUI.warteAufBeenden();
+						endText = aktuellerSpieler.name + " ist im Ziel!  Bitte Bestätigen...";
 					}
+					GUI.zeigeText(endText);
+					GUI.warteAufBeenden();
 				}
 			}
 		}
+		
 
-		System.out.println("-----------Spiel beendet! Die Platzierungen sind:--------------");
-		for (int platz : plaetze.keySet()) {
-			System.out.println(platz + ". Platz: " + plaetze.get(platz));
-		}
-		System.out.println("---------------------------------------------------------------");
+		GUI.zeigeText("-----------Spiel beendet!--------------");
+		GUI.ende(plaetze);
 	}
 
-	private static void rauswerfen(int neuesFeld, int spielerNummer) {
+	private static boolean rauswerfen(int neuesFeld, int spielerNummer) {
 		for (int rspielerNummer : spieler.keySet()) {
 			if (rspielerNummer != spielerNummer) {
 				Spieler rspieler = spieler.get(rspielerNummer);
@@ -94,10 +95,12 @@ public class Spiel {
 					Spielfigur spielFigur = rspieler.holeSpielfiguren().get(spielFigurNummer);
 					if (spielFigur.feldnummer == neuesFeld) {
 						spielFigur.rauswerfen();
+						return true;
 					}
 				}
 			}
 
 		}
+		return false;
 	}
 }

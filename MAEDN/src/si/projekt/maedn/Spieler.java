@@ -12,7 +12,11 @@ public class Spieler {
 	public Spieler(int spielernummer) {
 
 		this.spielernummer = spielernummer;
-		name = GUI.holeSpielerName(spielernummer);
+		String spielername = GUI.holeSpielerName(spielernummer);
+		if (spielername == null || spielername.equals("")){
+			spielername = "Spieler " + spielernummer;
+		}
+		this.name = spielername;
 		GUI.zeigeText("Name Spieler " + spielernummer + ": " + name);
 		erzeugeSpielfiguren();
 	}
@@ -148,15 +152,19 @@ public class Spieler {
 	private int pruefeFigur(int augenzahl, int figurnummer) {
 
 		Spielfigur spielfigur = spielfiguren.get(figurnummer);
+		int neuesFeld = spielfigur.berechneNeuesFeld(augenzahl);
+
 		if (spielfigur.feldnummer < 0) {
 			return -1;
 		}
 		
+		if (neuesFeld > this.spielernummer * 10 + 103) {
+			return 999;
+		} 
+		
 		if (spielfigur.feldnummer == spielernummer * 10) {
 			return 10;
 		}
-
-		int neuesFeld = spielfigur.berechneNeuesFeld(augenzahl);
 
 		for (int spielFigurNummer : spielfiguren.keySet()) {
 			if (spielFigurNummer != figurnummer) {
@@ -164,17 +172,13 @@ public class Spieler {
 				if (rspielfigur.feldnummer == neuesFeld) {
 					return 9;
 				}
-				if (rspielfigur.feldnummer > 100 && rspielfigur.feldnummer < neuesFeld) {
+				if (rspielfigur.feldnummer > 100 && rspielfigur.feldnummer < neuesFeld && spielfigur.feldnummer < rspielfigur.feldnummer) {
 					return 99;
 				}
 			}
 		}
-
-		if (neuesFeld > this.spielernummer * 10 + 103) {
-			return 999;
-		} else {
-			return 1;
-		}
+		
+		return 1;
 
 	}
 

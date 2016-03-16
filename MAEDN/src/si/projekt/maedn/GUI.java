@@ -17,6 +17,9 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 
 public class GUI {
 
@@ -26,7 +29,7 @@ public class GUI {
 	static Label lblWelcome;
 	static Label lblMaedn;
 	static HashMap<Integer, Canvas> spielfiguren = new HashMap<Integer, Canvas>();
-	private static Text textfeld;
+	static Text textfeld;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -34,29 +37,30 @@ public class GUI {
 	public static void oeffneFenster() {
 
 		display = Display.getDefault();
-		shlMaedn = new Shell(display, SWT.CLOSE | SWT.TITLE | SWT.MIN );
+		shlMaedn = new Shell(display, SWT.CLOSE | SWT.TITLE | SWT.MIN);
 		shlMaedn.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
 		shlMaedn.setImage(SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\FigurRot.png"));
 		shlMaedn.setSize(808, 851);
 		shlMaedn.setText("MEADN");
-		
+
 		textfeld = new Text(shlMaedn, SWT.BORDER);
 		textfeld.setBounds(0, 801, 802, 21);
-		
+
 		lblWelcome = new Label(shlMaedn, SWT.NONE);
 		lblWelcome.setImage(SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Maedn.png"));
 		lblWelcome.setBounds(196, 72, 400, 284);
-		
+
 		lblMaedn = new Label(shlMaedn, SWT.NONE);
+		lblMaedn.setAlignment(SWT.CENTER);
 		lblMaedn.setFont(SWTResourceManager.getFont("Gabriola", 33, SWT.NORMAL));
 		lblMaedn.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
 		lblMaedn.setBounds(221, 0, 347, 81);
 		lblMaedn.setText("Herzlich Willkommen bei");
-		
+
 		shlMaedn.open();
 		shlMaedn.layout();
 	}
-	
+
 	public static void zeigeText(String text) {
 		textfeld.setText(text);
 	}
@@ -64,18 +68,18 @@ public class GUI {
 	public static void zeigeSpielfeld() {
 		lblWelcome.dispose();
 		lblMaedn.dispose();
-		
-		for (int spielfigurnummer : spielfiguren.keySet()){
+
+		for (int spielfigurnummer : spielfiguren.keySet()) {
 			Canvas spielfigur = spielfiguren.get(spielfigurnummer);
 			spielfigur.setSize(33, 60);
 		}
-		
+
 		shlMaedn.setBackgroundImage(
 				SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Spielfeld.png"));
 	}
 
 	public static int holeSpielerAnzahl() {
-		
+
 		GUI.zeigeText("Wie viele Spieler?");
 
 		Label label = new Label(shlMaedn, SWT.NONE);
@@ -138,11 +142,11 @@ public class GUI {
 		GUI.zeigeText("Spieler " + spielernummer + ": Trage deinen Namen ein!");
 
 		String spielerName = "Spieler " + spielernummer;
-		
+
 		Button button = new Button(shlMaedn, SWT.NONE);
 		button.setText("OK");
 		button.setBounds(475, 434, 28, 25);
-		
+
 		Text nameSpielerText;
 		nameSpielerText = new Text(shlMaedn, SWT.BORDER);
 		nameSpielerText.setBounds(272, 436, 183, 21);
@@ -437,7 +441,7 @@ public class GUI {
 		}
 
 	}
-	
+
 	public static void warteAufBeenden() {
 		Canvas beenden = new Canvas(shlMaedn, SWT.TRANSPARENT);
 		beenden.setBounds(350, 350, 100, 100);
@@ -477,7 +481,8 @@ public class GUI {
 		wuerfel.setBounds(350, 350, 100, 100);
 		wuerfel.addPaintListener(new PaintListener() {
 			public void paintControl(PaintEvent e) {
-				e.gc.drawImage(SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Wuerfelbecher.png"), 0,
+				e.gc.drawImage(
+						SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Wuerfelbecher.png"), 0,
 						0);
 			}
 		});
@@ -573,15 +578,17 @@ public class GUI {
 
 	public static int welcheSpielfigur(int spielernummer) {
 		letzteAusgewaehlteFigur = 0;
-		
+
 		MouseListener mouseListener1 = new MouseListener() {
 			@Override
 			public void mouseDoubleClick(MouseEvent arg0) {
 			}
+
 			@Override
 			public void mouseDown(MouseEvent arg0) {
 				letzteAusgewaehlteFigur = 1;
 			}
+
 			@Override
 			public void mouseUp(MouseEvent arg0) {
 			}
@@ -590,10 +597,12 @@ public class GUI {
 			@Override
 			public void mouseDoubleClick(MouseEvent arg0) {
 			}
+
 			@Override
 			public void mouseDown(MouseEvent arg0) {
 				letzteAusgewaehlteFigur = 2;
 			}
+
 			@Override
 			public void mouseUp(MouseEvent arg0) {
 			}
@@ -602,10 +611,12 @@ public class GUI {
 			@Override
 			public void mouseDoubleClick(MouseEvent arg0) {
 			}
+
 			@Override
 			public void mouseDown(MouseEvent arg0) {
 				letzteAusgewaehlteFigur = 3;
 			}
+
 			@Override
 			public void mouseUp(MouseEvent arg0) {
 			}
@@ -614,31 +625,77 @@ public class GUI {
 			@Override
 			public void mouseDoubleClick(MouseEvent arg0) {
 			}
+
 			@Override
 			public void mouseDown(MouseEvent arg0) {
 				letzteAusgewaehlteFigur = 4;
 			}
+
 			@Override
 			public void mouseUp(MouseEvent arg0) {
 			}
 		};
-			
+
 		spielfiguren.get(spielernummer * 10 + 1).addMouseListener(mouseListener1);
 		spielfiguren.get(spielernummer * 10 + 2).addMouseListener(mouseListener2);
 		spielfiguren.get(spielernummer * 10 + 3).addMouseListener(mouseListener3);
 		spielfiguren.get(spielernummer * 10 + 4).addMouseListener(mouseListener4);
-	
+
 		while (letzteAusgewaehlteFigur == 0) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
 		}
-		
+
 		spielfiguren.get(spielernummer * 10 + 1).removeMouseListener(mouseListener1);
 		spielfiguren.get(spielernummer * 10 + 2).removeMouseListener(mouseListener2);
 		spielfiguren.get(spielernummer * 10 + 3).removeMouseListener(mouseListener3);
 		spielfiguren.get(spielernummer * 10 + 4).removeMouseListener(mouseListener4);
-		
+
 		return letzteAusgewaehlteFigur;
+	}
+
+	public static void ende(HashMap<Integer, String> plaetze) {
+		shlMaedn.setBackgroundImage(null);
+		for (int spielfigurnummer : spielfiguren.keySet()){
+			spielfiguren.get(spielfigurnummer).dispose();
+		}
+		
+		lblWelcome = new Label(shlMaedn, SWT.NONE);
+		lblWelcome.setImage(SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Maedn.png"));
+		lblWelcome.setBounds(196, 72, 400, 284);
+
+		lblMaedn = new Label(shlMaedn, SWT.NONE);
+		lblMaedn.setAlignment(SWT.CENTER);
+		lblMaedn.setFont(SWTResourceManager.getFont("Gabriola", 33, SWT.NORMAL));
+		lblMaedn.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
+		lblMaedn.setBounds(221, 0, 347, 81);
+		lblMaedn.setText("Spiel beendet!");
+		
+		Table table = new Table(shlMaedn, SWT.BORDER | SWT.FULL_SELECTION);
+		table.setBounds(269, 422, 264, 161);
+		table.setHeaderVisible(true);
+		table.setLinesVisible(true);
+		String[] titles = { "Platz", "Spieler" };
+		for (int i = 0; i < titles.length; i++) {
+			TableColumn column = new TableColumn(table, SWT.NONE);
+			column.setText(titles[i]);
+		}
+
+		for (int platz : plaetze.keySet()) {
+			TableItem item = new TableItem(table, SWT.NULL);
+			item.setText(0, platz + ". Platz");
+			item.setText(1, plaetze.get(platz));
+		}
+
+		for (int i = 0; i < titles.length; i++) {
+			table.getColumn(i).pack();
+		}
+		
+		while (!shlMaedn.isDisposed()) {
+			if (!display.readAndDispatch())
+				display.sleep();
+		}
+		display.dispose();
 	}
 }
