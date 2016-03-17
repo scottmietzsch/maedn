@@ -39,15 +39,15 @@ public class GUI {
 		display = Display.getDefault();
 		shlMaedn = new Shell(display, SWT.CLOSE | SWT.TITLE | SWT.MIN);
 		shlMaedn.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
-		shlMaedn.setImage(SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\FigurRot.png"));
+		shlMaedn.setImage(SWTResourceManager.getImage("img\\FigurRot.png"));
 		shlMaedn.setSize(808, 851);
-		shlMaedn.setText("MEADN");
+		shlMaedn.setText("MAEDN");
 
 		textfeld = new Text(shlMaedn, SWT.BORDER); //Statustextfeld
 		textfeld.setBounds(0, 801, 802, 21);
 
 		lblWelcome = new Label(shlMaedn, SWT.NONE);
-		lblWelcome.setImage(SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Maedn.png"));
+		lblWelcome.setImage(SWTResourceManager.getImage("img\\Maedn.png"));
 		lblWelcome.setBounds(196, 72, 400, 284);
 
 		lblMaedn = new Label(shlMaedn, SWT.NONE);
@@ -75,7 +75,7 @@ public class GUI {
 		}
 
 		shlMaedn.setBackgroundImage(
-				SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Spielfeld.png"));
+				SWTResourceManager.getImage("img\\Spielfeld.png"));
 	}
 
 	public static int holeSpielerAnzahl() { //Abfrage Spieleranzahl
@@ -182,22 +182,22 @@ public class GUI {
 				switch (spielernummer) {
 				case 1:
 					e.gc.drawImage(
-							SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\FigurSchwarz.png"),
+							SWTResourceManager.getImage("img\\FigurSchwarz.png"),
 							0, 0);
 					break;
 				case 2:
 					e.gc.drawImage(
-							SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\FigurGelb.png"), 0,
+							SWTResourceManager.getImage("img\\FigurGelb.png"), 0,
 							0);
 					break;
 				case 3:
 					e.gc.drawImage(
-							SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\FigurGruen.png"), 0,
+							SWTResourceManager.getImage("img\\FigurGruen.png"), 0,
 							0);
 					break;
 				case 4:
 					e.gc.drawImage(
-							SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\FigurRot.png"), 0,
+							SWTResourceManager.getImage("img\\FigurRot.png"), 0,
 							0);
 					break;
 				}
@@ -454,7 +454,7 @@ public class GUI {
 		beenden.setBounds(350, 350, 100, 100);
 		beenden.addPaintListener(new PaintListener() {
 			public void paintControl(PaintEvent e) {
-				e.gc.drawImage(SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Haken.png"), 0,
+				e.gc.drawImage(SWTResourceManager.getImage("img\\Haken.png"), 0,
 						0);
 			}
 		});
@@ -489,7 +489,7 @@ public class GUI {
 		wuerfel.addPaintListener(new PaintListener() {
 			public void paintControl(PaintEvent e) {
 				e.gc.drawImage(
-						SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Wuerfelbecher.png"), 0,
+						SWTResourceManager.getImage("img\\Wuerfelbecher.png"), 0,
 						0);
 			}
 		});
@@ -526,32 +526,32 @@ public class GUI {
 				switch (augenzahl) {
 				case 1:
 					e.gc.drawImage(
-							SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Wuerfel1.png"), 0,
+							SWTResourceManager.getImage("img\\Wuerfel1.png"), 0,
 							0);
 					break;
 				case 2:
 					e.gc.drawImage(
-							SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Wuerfel2.png"), 0,
+							SWTResourceManager.getImage("img\\Wuerfel2.png"), 0,
 							0);
 					break;
 				case 3:
 					e.gc.drawImage(
-							SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Wuerfel3.png"), 0,
+							SWTResourceManager.getImage("img\\Wuerfel3.png"), 0,
 							0);
 					break;
 				case 4:
 					e.gc.drawImage(
-							SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Wuerfel4.png"), 0,
+							SWTResourceManager.getImage("img\\Wuerfel4.png"), 0,
 							0);
 					break;
 				case 5:
 					e.gc.drawImage(
-							SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Wuerfel5.png"), 0,
+							SWTResourceManager.getImage("img\\Wuerfel5.png"), 0,
 							0);
 					break;
 				case 6:
 					e.gc.drawImage(
-							SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Wuerfel6.png"), 0,
+							SWTResourceManager.getImage("img\\Wuerfel6.png"), 0,
 							0);
 					break;
 				}
@@ -669,7 +669,7 @@ public class GUI {
 		}
 
 		lblWelcome = new Label(shlMaedn, SWT.NONE);
-		lblWelcome.setImage(SWTResourceManager.getImage("C:\\Users\\philt\\git\\maedn\\MAEDN\\img\\Maedn.png"));
+		lblWelcome.setImage(SWTResourceManager.getImage("img\\Maedn.png"));
 		lblWelcome.setBounds(196, 72, 400, 284);
 
 		lblMaedn = new Label(shlMaedn, SWT.NONE);
